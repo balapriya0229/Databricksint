@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "databricksint"
+version = "0.1.0"
+description = "Local PySpark unit testing setup"
+authors = ["Databricksint Team"]
+readme = "README.md"
+packages = [{ include = "databricksint", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyspark = "^3.5.1"
+chispa = "^0.11.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-cov = "^5.0.0"
+ruff = "^0.11.2"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-q --maxfail=1 --disable-warnings --cov=src --cov-report=term-missing"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"

@@ -8,7 +8,6 @@ Bronze → Silver medallion architecture using AutoLoader and Delta tables.
 ## Repository Structure
 
 ```
-.
 ├── data/
 │   └── customers.csv               # 20 sample customer records (includes 1 duplicate)
 └── notebooks/
@@ -17,8 +16,6 @@ Bronze → Silver medallion architecture using AutoLoader and Delta tables.
     ├── 03_silver_standard.py         # Clean & dedup → Silver (standard PySpark batch)
     └── 04_silver_dlt_pipeline.py     # Clean & dedup → Silver (Delta Live Tables / DLT)
 ```
-
----
 
 ## Pipeline Overview
 
@@ -162,3 +159,40 @@ Run the notebooks **in order** on any Databricks cluster:
 | Age ≤ 0 or ≥ 120 | Drop row |
 | Negative `total_purchases` | Drop row |
 | Duplicate `customer_id` | Keep latest by `_ingest_timestamp` |
+
+---
+
+## Local PySpark Unit Testing (Poetry + venv)
+
+Use Poetry for dependency management via `pyproject.toml`, with the virtual
+environment stored in `.venv`.
+
+### Prerequisites
+
+- Python 3.12
+- Java 8 or 11 (required by local PySpark runtime)
+
+### Install dependencies
+
+```powershell
+.\.venv\Scripts\python.exe -m poetry install
+```
+
+### Run unit tests
+
+```powershell
+.\.venv\Scripts\python.exe -m poetry run pytest
+```
+
+### Run tests with coverage
+
+```powershell
+.\.venv\Scripts\python.exe -m poetry run pytest --cov=src --cov-report=term-missing
+```
+
+### Ruff lint and format
+
+```powershell
+.\.venv\Scripts\python.exe -m poetry run ruff check .
+.\.venv\Scripts\python.exe -m poetry run ruff format .
+```
