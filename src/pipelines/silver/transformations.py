@@ -9,6 +9,7 @@ making them fully unit-testable in isolation.
 from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
 from pyspark.sql import Window
+from pyspark.sql.types import StringType
 
 
 # ---------------------------------------------------------------------------
@@ -31,7 +32,7 @@ DEDUP_ORDER_COL: str = "updated_at"
 def trim_string_columns(df: DataFrame) -> DataFrame:
     """Trim leading/trailing whitespace from all string columns."""
     for field in df.schema.fields:
-        if str(field.dataType) == "StringType":
+        if isinstance(field.dataType, StringType):
             df = df.withColumn(field.name, F.trim(F.col(field.name)))
     return df
 

@@ -9,7 +9,7 @@ enforce row-level contracts; failing rows are dropped.
 from pyspark import pipelines as dp
 from pyspark.sql import functions as F
 
-from customer_pipeline.transformations import apply_silver_transformations
+from pipelines.silver.transformations import apply_silver_transformations
 
 
 # ---------------------------------------------------------------------------
